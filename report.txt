@@ -1,0 +1,85 @@
+Starting diagnostics at 2025-06-02 23:00:20
+
+===== System Information =====
+Operating System: Windows
+Windows Release: 11
+Windows Version: 10.0.26100
+Architecture: ('64bit', 'WindowsPE')
+Machine: AMD64
+Processor: Intel64 Family 6 Model 158 Stepping 10, GenuineIntel
+Total RAM: 31.88 GB
+Available RAM: 18.04 GB
+Free Disk Space: 276.78 GB
+
+===== File System Information =====
+Current Directory: C:\workspace\PythonProjects\agents
+Write permission: OK
+
+Files in Parent Directory:
+ - agents
+ - ai-test
+ - dlwpt-code-master.zip
+
+===== Git Repository Information =====
+Git Repository Root: C:/workspace/PythonProjects/agents
+Current Commit: ed47c5d1b74e0e4a54fe6e2b248c640fb6666f0a
+Remote Origin: https://github.com/ed-donner/agents.git
+
+===== Environment File Check =====
+.env file exists at: C:/workspace/PythonProjects/agents\.env
+WARNING: OPENAI_API_KEY not found in .env file
+
+===== Virtualenv Check =====
+Virtualenv is active:
+Environment Path: C:\workspace\PythonProjects\agents\.venv
+Environment Name: .venv
+
+Python Environment:
+Python Version: 3.12.10 (main, May 30 2025, 05:39:07) [MSC v.1943 64 bit (AMD64)]
+Python Executable: C:\workspace\PythonProjects\agents\.venv\Scripts\python.exe
+
+Required Package Versions:
+openai: 1.82.1
+python-dotenv: 1.1.0
+requests: 2.32.3
+gradio: 5.31.0
+openai-agents: 0.0.16
+
+===== Network Connectivity Check =====
+SSL Version: OpenSSL 3.0.16 11 Feb 2025
+✓ Connected to https://www.google.com
+  Response time: 0.32s
+
+Performing bandwidth test using speedtest-cli...
+Download speed: 198.19 Mbps
+Upload speed: 56.62 Mbps
+
+===== Environment Variables Check =====
+
+PYTHONPATH is not set, as expected.
+
+Python sys.path:
+ - C:\workspace\PythonProjects\agents\setup
+ - C:\Users\34919\AppData\Roaming\uv\python\cpython-3.12.10-windows-x86_64-none\python312.zip
+ - C:\Users\34919\AppData\Roaming\uv\python\cpython-3.12.10-windows-x86_64-none\DLLs
+ - C:\Users\34919\AppData\Roaming\uv\python\cpython-3.12.10-windows-x86_64-none\Lib
+ - C:\Users\34919\AppData\Roaming\uv\python\cpython-3.12.10-windows-x86_64-none
+ - C:\workspace\PythonProjects\agents\.venv
+ - C:\workspace\PythonProjects\agents\.venv\Lib\site-packages
+ - C:\workspace\PythonProjects\agents\.venv\Lib\site-packages\win32
+ - C:\workspace\PythonProjects\agents\.venv\Lib\site-packages\win32\lib
+ - C:\workspace\PythonProjects\agents\.venv\Lib\site-packages\Pythonwin
+ - C:\workspace\PythonProjects\agents\.venv\Lib\site-packages\setuptools\_vendor
+WARNING: OPENAI_API_KEY environment variable is not set after calling load_dotenv()
+
+===== Additional Diagnostics =====
+Temp directory is writable: C:\Users\34919\AppData\Local\Temp
+
+===== Warnings Found =====
+The following warnings were detected. They might not prevent the program from running but could cause unexpected behavior:
+- OPENAI_API_KEY not found in .env file
+- OPENAI_API_KEY environment variable is not set after calling load_dotenv()
+
+
+Completed diagnostics at 2025-06-02 23:00:54
+
