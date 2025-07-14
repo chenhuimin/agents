@@ -11,7 +11,9 @@ class ResearchManager:
     async def run(self, query: str):
         trace_id = gen_trace_id()
         with trace("Research trace", trace_id=trace_id):
-            print(f"View trace: https://platform.openai.com/traces/trace?trace_id={trace_id}")
+            print(
+                f"View trace: https://platform.openai.com/traces/trace?trace_id={trace_id}"
+            )
             yield f"View trace: https://platform.openai.com/traces/trace?trace_id={trace_id}"
             print("Starting research...")
 
@@ -29,31 +31,22 @@ class ResearchManager:
             yield report.markdown_report
 
     async def plan_searches(self, query: str) -> WebSearchPlan:
-        """ Plan the searches using the planner_tool """
+        """Plan the searches to perform for the query"""
         print("Planning searches...")
-
         result = await Runner.run(
             planner_agent,
-            {
-                "steps": [
-                    {
-                        "call": "planner_tool",
-                        "input": {"query": query}
-                    }
-                ]
-            }
+            f"Query: {query}",
         )
-
-        output = result.output  # 这里已经是 dict
-        plan = WebSearchPlan(**output)
-        print(f"Will perform {len(plan.searches)} searches")
-        return plan
+        print(f"Will perform {len(result.final_output.searches)} searches")
+        return result.final_output_as(WebSearchPlan)
 
     async def perform_searches(self, search_plan: WebSearchPlan) -> list[str]:
-        """ Perform the searches """
+        """Perform the searches"""
         print("Searching...")
         num_completed = 0
-        tasks = [asyncio.create_task(self.search(item)) for item in search_plan.searches]
+        tasks = [
+            asyncio.create_task(self.search(item)) for item in search_plan.searches
+        ]
         results = []
         for task in asyncio.as_completed(tasks):
             result = await task
@@ -65,42 +58,28 @@ class ResearchManager:
         return results
 
     async def search(self, item: WebSearchItem) -> str | None:
-        """ Perform a search for a single query """
+        """Perform a search for a single query"""
         input = f"Search term: {item.query}\nReason for searching: {item.reason}"
         try:
             result = await Runner.run(
                 search_agent,
-                input  # 如果 search_agent 还是 model+output_type，则可直接传字符串
+                input,  # 如果 search_agent 还是 model+output_type，则可直接传字符串
             )
             return str(result.final_output)
         except Exception:
             return None
 
     async def write_report(self, query: str, search_results: list[str]) -> ReportData:
-        """ Write the report using the writer_tool """
+        """Write the report for the query"""
         print("Thinking about report...")
-        summarized = "\n".join(search_results)
-
+        input = f"Original query: {query}\nSummarized search results: {search_results}"
         result = await Runner.run(
             writer_agent,
-            {
-                "steps": [
-                    {
-                        "call": "writer_tool",
-                        "input": {
-                            "query": query,
-                            "research_notes": summarized
-                        }
-                    }
-                ]
-            }
+            input,
         )
 
-        output = result.output
-        report = ReportData(**output)
-
         print("Finished writing report")
-        return report
+        return result.final_output_as(ReportData)
 
     async def send_email(self, report: ReportData) -> None:
         print("Writing email...")
