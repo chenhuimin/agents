@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from custom_client_model import doubao_model
+from custom_client_model import doubao_model, deepseek_model
 from agents import Agent, function_tool
 
 
@@ -38,6 +38,7 @@ The search terms should be relevant to the query and formatted as JSON.
 planner_agent = Agent(
     name="PlannerAgent",
     instructions=INSTRUCTIONS,
-    model=doubao_model,
+    # model=doubao_model,
+    model=deepseek_model,
     output_type=WebSearchPlan,
 )

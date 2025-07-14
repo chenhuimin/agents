@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from agents import Agent
-from custom_client_model import doubao_model
+from custom_client_model import doubao_model, deepseek_model
 
 
 INSTRUCTIONS = """
@@ -48,6 +48,7 @@ class ReportData(BaseModel):
 writer_agent = Agent(
     name="WriterAgent",
     instructions=INSTRUCTIONS,
-    model=doubao_model,
+    # model=doubao_model,
+    model=deepseek_model,
     output_type=ReportData,
 )

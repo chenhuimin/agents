@@ -1,5 +1,5 @@
 from agents import Agent, WebSearchTool, ModelSettings
-from custom_client_model import deepseek_model
+from custom_client_model import deepseek_model, doubao_model
 
 INSTRUCTIONS = (
     "You are a research assistant. Given a search term, you search the web for that term and "
@@ -13,6 +13,7 @@ search_agent = Agent(
     name="Search agent",
     instructions=INSTRUCTIONS,
     tools=[WebSearchTool(search_context_size="low")],
+    # model=doubao_model,
     model=deepseek_model,
     model_settings=ModelSettings(tool_choice="required"),
 )
